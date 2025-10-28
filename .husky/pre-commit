@@ -1,3 +1,2 @@
 npm run check
 npm run format:write
-git add .
