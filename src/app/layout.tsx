@@ -5,13 +5,14 @@ import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
 
-import Footer from "@/client/components/footer";
-import Header from "@/client/components/header";
+import Body from "@/client/layout/body";
+import Footer from "@/client/layout/footer";
+import Header from "@/client/layout/header";
+import Main from "@/client/layout/main";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
 export const metadata: Metadata = {
-  title: "홈텐더",
+  title: "홈바페",
   description: "홈바와 홈카페 유저를 위한 레시피 관리 솔루션",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
@@ -26,18 +27,16 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>
+      <body className="min-w-fit">
         <TRPCReactProvider>
-          <div className="flex min-h-screen flex-col bg-linear-to-b from-[#2e026d] to-[#15162c] text-white">
+          <Body>
             <Header />
-            <main className="flex flex-1 items-center justify-center">
-              {children}
-            </main>
+            <Main>{children}</Main>
             <Footer />
-          </div>
-          <Analytics />
-          <SpeedInsights />
+          </Body>
         </TRPCReactProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
