@@ -1,5 +1,3 @@
-"use client";
-
-export default function Login() {
+export default function Bookmark() {
   return <div>즐겨찾기</div>;
 }
