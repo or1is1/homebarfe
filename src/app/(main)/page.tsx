@@ -1,9 +1,9 @@
 export default async function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen px-6">
       {/* Hero Section */}
-      <section className="mx-auto max-w-6xl px-6 pt-10 pb-16">
-        <div className="mx-auto max-w-3xl text-center">
+      <section className="mx-auto pt-10 pb-16">
+        <div className="mx-auto max-w-4xl text-center">
           <h1 className="mb-6 text-5xl leading-tight font-bold text-slate-900 md:text-6xl">
             집에서 즐기는
             <br />
@@ -27,7 +27,7 @@ export default async function Home() {
 
       {/* Features Section */}
       <section className="bg-white py-12">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-4xl font-bold text-slate-900">
               당신의 홈바를 위한 모든 것
@@ -87,8 +87,8 @@ export default async function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12">
-        <div className="mx-auto max-w-4xl px-6 text-center">
+      <section className="mx-auto max-w-4xl">
+        <div className="mx-auto text-center">
           <div
             className="rounded-2xl p-12"
             style={{ backgroundColor: "#39c5bb" }}

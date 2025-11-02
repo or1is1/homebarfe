@@ -25,7 +25,7 @@ export default function NavigationButton({
   return (
     <button
       type="button"
-      className="flex cursor-pointer rounded-2xl px-4 py-2 whitespace-nowrap hover:bg-cyan-100"
+      className="flex cursor-pointer rounded-2xl px-4 py-2 whitespace-nowrap hover:bg-cyan-100/70"
       onClick={handleClick}
     >
       {children}
