@@ -7,6 +7,7 @@ const matchersForSignIn: string[] = ["/login", "/join"];
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request, secret: env.AUTH_SECRET });
+  console.log("token", token);
 
   if (isMatch(request.nextUrl.pathname, matchersForAuth)) {
     return token
