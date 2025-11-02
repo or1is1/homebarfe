@@ -33,12 +33,23 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
-  // trustHost: env.NODE_ENV === "development",
-  // debug: env.NODE_ENV === "development",
+  trustHost: true, // Vercel ???? ??
+  debug: env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
   },
   secret: env.AUTH_SECRET,
+  cookies: {
+    sessionToken: {
+      name: `${env.NODE_ENV === "production" ? "__Secure-" : ""}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: env.NODE_ENV === "production", // ??????? secure
+      },
+    },
+  },
   providers: [
     GoogleProvider({
       clientId: env.AUTH_GOOGLE_ID,
