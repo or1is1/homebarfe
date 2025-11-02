@@ -33,7 +33,7 @@ model Account {
 }
 
 model Bookmark {
-  id         BigInt    @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   cocktailId Int?      @map("cocktail_id")
   createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
   userId     String?   @map("user_id") @db.Uuid
@@ -42,6 +42,17 @@ model Bookmark {
 
   @@unique([userId, cocktailId], map: "uq_user_cocktail")
   @@map("bookmark")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String?
+  description String?
+  parentId    Int?     @map("parent_id")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("category")
 }
 
 model Cocktail {
@@ -61,25 +72,16 @@ model Cocktail {
 }
 
 model Ingredient {
-  id               Int          @id @default(autoincrement())
-  description      String?
-  abv              Float?       @db.Real
-  parentId         Int?         @map("parent_id")
-  isPublic         Boolean      @default(false) @map("is_public")
-  createdAt        DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
-  name             String
-  createdBy        String?      @map("created_by") @db.Uuid
-  ingredient       Ingredient?  @relation("ingredientToingredient", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  otherIngredients Ingredient[] @relation("ingredientToingredient")
-  user             User?        @relation(fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ingredient_user_id_fkey")
-  inventories      Inventory[]
-  recipes          Recipe[]
+  id          Int         @id @default(autoincrement())
+  name        String
+  inventories Inventory[]
+  recipes     Recipe[]
 
   @@map("ingredient")
 }
 
 model Inventory {
-  id           BigInt      @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   createdAt    DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
   ingredientId Int?        @map("ingredient_id")
   quantity     Int         @default(1)
@@ -105,7 +107,7 @@ model Post {
 }
 
 model Recipe {
-  id           BigInt     @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   cocktailId   Int        @map("cocktail_id")
   ingredientId Int        @map("ingredient_id")
   amount       Float      @db.Real
@@ -130,15 +132,14 @@ model Session {
 }
 
 model User {
-  id            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id            String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name          String?
-  email         String?      @unique
-  emailVerified DateTime?    @map("email_verified")
+  email         String?     @unique
+  emailVerified DateTime?   @map("email_verified")
   image         String?
   accounts      Account[]
   bookmarks     Bookmark[]
   cocktails     Cocktail[]
-  ingredients   Ingredient[]
   inventories   Inventory[]
   posts         Post[]
   sessions      Session[]
