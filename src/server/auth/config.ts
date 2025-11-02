@@ -33,7 +33,7 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
-  // trustHost: env.NODE_ENV === "development",
+  trustHost: true,
   // debug: env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
